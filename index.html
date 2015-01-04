@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<link rel="stylesheet" type="text/css" href="http://phylogame.org/wp-content/cache/minify/000000/M9AvyKjMyc_Nz9MtyUjNTdUvLqnMSQUA.css" media="all">
+		<title>Phylo Card Creator</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <style>
+            .terrain {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+            }
+            #Terrain2 { /* FIX THIS! */
+                left: 84px;
+            }
+            #Terrain3 {
+                left: 168px;
+            }
+            #card {
+                background-color: #F8EEC3;
+            }
+        </style>
+	</head>
+	<body>
+        <form>
+        <div class="card" id="card">
+            <h2 class="card-name"><a href="http://phylogame.org/2012/05/30/black-bear-2/" id="CommonName">Black Bear</a></h2>
+            <span class="latin-name" id="SciName">Ursus americanus</span>
+            <div class="num-values"> <img src="http://phylogame.org/wp-content/themes/phylomon-theme/img/num/8.png" id="Size"> <img src="http://phylogame.org/wp-content/themes/phylomon-theme/img/num/omnivore3.png" id="FoodChain"></div>
+            <div class="card-image">
+                <div class="graphic"><img src="https://farm8.staticflickr.com/7195/7071530331_46938b6a69_o_d.jpg" id="Image"></div>
+            </div>
+            <div class="card-classification"> <a href="http://phylogame.org/classification/animalia/" rel="tag" id="Cat1">Animalia</a>,<a href="http://phylogame.org/classification/chordata/" rel="tag" id="Cat2">Chordata</a>,<a href="http://phylogame.org/classification/mammalia/" rel="tag" id="Cat3">Mammalia</a></div>
+            <div class="creative-commons"> <a href="http://creativecommons.org/licenses/by-nc-nd/2.0/deed.en_CA" target="_blank"><img src="http://phylogame.org/wp-content/themes/phylomon-theme/img/creative-commons.png" alt="Creative Commons Attribution-Noncommercial-No Derivatives Works 2.0"></a></div>
+            <div class="card-text">
+                <p style="text-align: right;"><strong id="Points">5 POINTS</strong></p>
+                <br>
+                <div id="Play">
+                    <p><strong>Play: </strong><em><output id="PlaySciName">Ursus americanus</output></em> has a <strong id="Travel">MOVE</strong> of <strong id="Distance">2</strong><span id="Special"></span></p>
+                    <br>
+                </div>
+                <p><strong>Fact: </strong><span id="Fact">Black bears are omnivores and their diets vary greatly depending on season and location</span></p>
+            </div>
+            <div class="card-temperature" id="Climates">Cool, Warm</div>
+            <div class="card-credit">
+                <div><span>Image by <em id="Artist">Lindsay Chetek</em></span>
+                <a href="http://www.lindsaychetek.com" id="ArtistURL">www.lindsaychetek.com</a></div>
+            </div>
+            <img src="terrains/forest.png" class="terrain" id="Terrain1">
+            <img src="terrains/freshwater.png" class="terrain" id="Terrain2">
+            <img src="terrains/grassland.png" class="terrain" id="Terrain3">
+        </div>
+            <label>Common Name: <input type="text" oninput="CommonName.innerHTML = this.value;"></label><br>
+            <label>Scientific (Latin) Name: <input type="text" oninput="SciName.innerHTML = this.value; PlaySciName.innerHTML = this.value"></label><br><br>
+            <label>Size: <input type="range" value="8" min="1" max="9" oninput="Size.src = 'http://phylogame.org/wp-content/themes/phylomon-theme/img/num/' + this.value + '.png'; var sizes = ['virus', 'single-celled organism', 'small multi-celled organism', 'fly', 'mouse', 'rabbit', 'cow', 'tiger', 'large tree/whale']; SizeCompare.value = sizes[this.value-1]"></label>The size of a <output name="SizeCompare">tiger</output><br><br>
+            <label>Diet:
+            <select id="diet" oninput="setDiet(this.value)">
+                <option value="photosynthetic">Photosynthetic</option>
+                <option value="carbon-macromolecules">Carbon/Decomposer/Other</option>
+                <option value="herbivore">Herbivore</option>
+                <option value="omnivore" selected>Omnivore</option>
+                <option value="carnivore">Carnivore</option>
+            </select></label> <br>
+            <label>Hierarchy: <input id="hierarchy" type=number value="3" min="1" max="1" oninput="setHierarchy(this.value)"></label><br><br>
+            <label>Image Source: <input type="url" oninput="Image.src = this.value"></label><br><br>
+            <label>Categories:</label> 
+            <input type="text" placeholder="Kingdom" list="kingdoms" oninput="Cat1.innerHTML = this.value; Cat1.href = 'http://phylogame.org/classification/' + this.value">
+            <datalist id="kingdoms">
+                <option value="Animalia">
+                <option value="Plantae">
+                <option value="Fungi">
+                <option value="Bacteria">
+                <option value="Excavata">
+                <option value="Eukaryota">
+                <option value="Chromalveolata">
+            </datalist>
+            <input type="text" placeholder="Phylum" oninput="Cat2.innerHTML = this.value; Cat2.href = 'http://phylogame.org/classification/' + this.value">
+            <input type="text" placeholder="Class" oninput="Cat3.innerHTML = this.value; Cat3.href = 'http://phylogame.org/classification/' + this.value"><br><br>
+            <label>Points: <input type="number" value="5" min="1" max="10" oninput="Points.innerHTML = this.value + ' POINT'; if(this.value!=1) {Points.innerHTML += 'S'}"></label><br><br>
+            <label>Travel: </label>
+            <select id="travel" oninput="setTravel(this.value)">
+                <option value="MOVE">Move</option>
+                <option value="FLIGHT">Flight</option>
+                <option value="NONE">None</option>
+            </select>
+            <input type="number" value="2" min="0" max="3" id="distance" oninput="if(this.value > 0){Distance.innerHTML = this.value; if(travel.options[2].selected){setTravel('MOVE'); travel.options[0].selected = true}} else {setTravel('NONE'); travel.options[2].selected = true}"><br>
+            <label>Special Play: <br><textarea oninput="if(this.value != '') {Special.innerHTML = '. ' + this.value} else {Special.innerHTML = ''}"></textarea></label><br>
+            <label>Fact: <br><textarea oninput="Fact.innerHTML = this.value"></textarea></label><br><br>
+            <label><input type="checkbox" onchange="climateList(0, this.checked)"> Cold</label>
+            <label><input type="checkbox" checked onchange="climateList(1, this.checked)"> Cool</label>
+            <label><input type="checkbox" checked onchange="climateList(2, this.checked)"> Warm</label>
+            <label><input type="checkbox" onchange="climateList(3, this.checked)"> Hot</label><br><br><!--FIXTHIS!!!-->
+            <label>Artist: <input type="text" oninput="Artist.innerHTML = this.value"></label><br>
+            <label>Artist URL: <input type="url" oninput="ArtistURL.innerHTML = this.value.replace('http://','').replace('https://',''); ArtistURL.href = this.value"></label><br><br>
+            <label>Background Color: <input type="color" placeholder="Hex or RGB value" value="#FCE4C7" oninput="card.style.background = this.value"></label><br>
+            <label>Terrains:</label> 
+            <select oninput="Terrain1.src = 'terrains/' + this.value + '.png'">
+                <option value="desert">Desert</option>
+                <option value="forest" selected>Forest</option>
+                <option value="freshwater">Freshwater</option>
+                <option value="grassland">Grassland</option>
+                <option value="ocean">Ocean</option>
+                <option value="tundra">Tundra</option>
+                <option value="urban">Urban</option>
+            </select>
+            <select oninput="Terrain2.src = 'terrains/' + this.value + '.png'">
+                <option value="desert">Desert</option>
+                <option value="forest">Forest</option>
+                <option value="freshwater" selected>Freshwater</option>
+                <option value="grassland">Grassland</option>
+                <option value="ocean">Ocean</option>
+                <option value="tundra">Tundra</option>
+                <option value="urban">Urban</option>
+            </select>
+            <select oninput="Terrain3.src = 'terrains/' + this.value + '.png'">
+                <option value="desert">Desert</option>
+                <option value="forest">Forest</option>
+                <option value="freshwater">Freshwater</option>
+                <option value="grassland" selected>Grassland</option>
+                <option value="ocean">Ocean</option>
+                <option value="tundra">Tundra</option>
+                <option value="urban">Urban</option>
+            </select>
+        </form>
+        <script>
+            var checks = [false, true, true, false];
+            var Climates = document.getElementById("Climates");
+            var diet = document.getElementById("diet");
+            var distance = document.getElementById("distance");
+            var hierarchy = document.getElementById("hierarchy");
+            var FoodChain = document.getElementById("FoodChain");
+            var climates = ["Cold", "Cool", "Warm", "Hot"];
+            var move = document.getElementById("move");
+            var Play = document.getElementById("Play");
+            var Travel = document.getElementById("Travel");
+            var travel = document.getElementById("travel");
+            function climateList(checkbox, checked) {
+                checks[checkbox] = checked;
+                Climates.innerHTML = "";
+                for(var i = 0; i < 4; i++) {
+                    if(checks[i]) {
+                        Climates.innerHTML += climates[i] + ", "
+                    }
+                }
+                Climates.innerHTML = Climates.innerHTML.substr(0, Climates.innerHTML.length-2);
+            }
+            function setDiet(diet) {
+                travel.disabled = false;
+                distance.disabled = false;
+                switch(diet) {
+                    case 'photosynthetic':
+                        travel.options[2].selected = true;
+                        travel.disabled = true;
+                        setTravel('NONE');
+                        distance.disabled = true;
+                        hierarchy.value = 1;
+                        hierarchy.min = 1;
+                        hierarchy.max = 1;
+                        break;
+                    case 'carbon-macromolecules':
+                        travel.options[2].selected = true;
+                        setTravel('NONE');
+                        hierarchy.value = 1;
+                        hierarchy.min = 1;
+                        hierarchy.max = 2;
+                        break;
+                    case 'herbivore':
+                        travel.options[0].selected = true;
+                        setTravel('MOVE');
+                        hierarchy.value = 2;
+                        hierarchy.min = 2;
+                        hierarchy.max = 2;
+                        break;
+                    case 'omnivore':
+                        travel.options[0].selected = true;
+                        setTravel('MOVE');
+                        hierarchy.value = 3;
+                        hierarchy.min = 2;
+                        hierarchy.max = 3;
+                        break;
+                    case 'carnivore':
+                        travel.options[0].selected = true;
+                        setTravel('MOVE');
+                        hierarchy.value = 3;
+                        hierarchy.min = 3;
+                        hierarchy.max = 4;
+                }
+                FoodChain.src = 'http://phylogame.org/wp-content/themes/phylomon-theme/img/num/' + diet + hierarchy.value + '.png';
+            }
+            function setHierarchy(hierarchy) {
+                FoodChain.src = 'http://phylogame.org/wp-content/themes/phylomon-theme/img/num/' + diet.value + hierarchy + '.png';
+            }
+            function setTravel(value) {
+                if(value == 'NONE') {
+                    distance.value = 0;
+                    Play.style.display = 'none'
+                } else {
+                    distance.value = Distance.innerHTML;
+                    Distance.innerHTML = distance.value;
+                    Travel.innerHTML = value;
+                    Play.style.display = 'block'
+                }
+            }
+        </script>
+	</body>
+</html>
