@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-US">
 	<head>
-		<link rel="stylesheet" type="text/css" href="http://phylogame.org/wp-content/cache/minify/000000/M9AvyKjMyc_Nz9MtyUjNTdUvLqnMSQUA.css" media="all">
+		<link rel="stylesheet" type="text/css" href="min.css">
 		<title>Phylo Card Creator</title>
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <style>
@@ -26,12 +26,12 @@
         <div class="card" id="card">
             <h2 class="card-name"><a href="http://phylogame.org/2012/05/30/black-bear-2/" id="CommonName">Black Bear</a></h2>
             <span class="latin-name" id="SciName">Ursus americanus</span>
-            <div class="num-values"> <img src="http://phylogame.org/wp-content/themes/phylomon-theme/img/num/8.png" id="Size"> <img src="http://phylogame.org/wp-content/themes/phylomon-theme/img/num/omnivore3.png" id="FoodChain"></div>
+            <div class="num-values"> <img src="images/sizes/8.png" id="Size"> <img src="images/foodchains/omnivore3.png" id="FoodChain"></div>
             <div class="card-image">
                 <div class="graphic"><img src="https://farm8.staticflickr.com/7195/7071530331_46938b6a69_o_d.jpg" id="Image"></div>
             </div>
             <div class="card-classification"> <a href="http://phylogame.org/classification/animalia/" rel="tag" id="Cat1">Animalia</a>,<a href="http://phylogame.org/classification/chordata/" rel="tag" id="Cat2">Chordata</a>,<a href="http://phylogame.org/classification/mammalia/" rel="tag" id="Cat3">Mammalia</a></div>
-            <div class="creative-commons"> <a href="http://creativecommons.org/licenses/by-nc-nd/2.0/deed.en_CA" target="_blank"><img src="http://phylogame.org/wp-content/themes/phylomon-theme/img/creative-commons.png" alt="Creative Commons Attribution-Noncommercial-No Derivatives Works 2.0"></a></div>
+            <div class="creative-commons"> <a href="http://creativecommons.org/licenses/by-nc-nd/2.0/deed.en_CA" target="_blank"><img src="images/creative-commons.png" alt="Creative Commons Attribution-Noncommercial-No Derivatives Works 2.0"></a></div>
             <div class="card-text">
                 <p style="text-align: right;"><strong id="Points">5 POINTS</strong></p>
                 <br>
@@ -46,17 +46,17 @@
                 <div><span>Image by <em id="Artist">Lindsay Chetek</em></span>
                 <a href="http://www.lindsaychetek.com" id="ArtistURL">www.lindsaychetek.com</a></div>
             </div>
-            <img src="terrains/forest.png" class="terrain" id="Terrain1">
-            <img src="terrains/freshwater.png" class="terrain" id="Terrain2">
-            <img src="terrains/grassland.png" class="terrain" id="Terrain3">
+            <img src="images/terrains/forest.png" class="terrain" id="Terrain1">
+            <img src="images/terrains/freshwater.png" class="terrain" id="Terrain2">
+            <img src="images/terrains/grassland.png" class="terrain" id="Terrain3">
         </div>
             <label>Common Name: <input type="text" oninput="CommonName.innerHTML = this.value;"></label><br>
             <label>Scientific (Latin) Name: <input type="text" oninput="SciName.innerHTML = this.value; PlaySciName.innerHTML = this.value"></label><br><br>
-            <label>Size: <input type="range" value="8" min="1" max="9" oninput="Size.src = 'http://phylogame.org/wp-content/themes/phylomon-theme/img/num/' + this.value + '.png'; var sizes = ['virus', 'single-celled organism', 'small multi-celled organism', 'fly', 'mouse', 'rabbit', 'cow', 'tiger', 'large tree/whale']; SizeCompare.value = sizes[this.value-1]"></label>The size of a <output name="SizeCompare">tiger</output><br><br>
+            <label>Size: <input type="range" value="8" min="1" max="9" oninput="Size.src = 'images/sizes/' + this.value + '.png'; var sizes = ['virus', 'single-celled organism', 'small multi-celled organism', 'fly', 'mouse', 'rabbit', 'cow', 'tiger', 'large tree/whale']; SizeCompare.value = sizes[this.value-1]"></label>The size of a <output name="SizeCompare">tiger</output><br><br>
             <label>Diet:
             <select id="diet" oninput="setDiet(this.value)">
                 <option value="photosynthetic">Photosynthetic</option>
-                <option value="carbon-macromolecules">Carbon/Decomposer/Other</option>
+                <option value="molecular">Molecular/Decomposer</option>
                 <option value="herbivore">Herbivore</option>
                 <option value="omnivore" selected>Omnivore</option>
                 <option value="carnivore">Carnivore</option>
@@ -94,7 +94,7 @@
             <label>Artist URL: <input type="url" oninput="ArtistURL.innerHTML = this.value.replace('http://','').replace('https://',''); ArtistURL.href = this.value"></label><br><br>
             <label>Background Color: <input type="color" placeholder="Hex or RGB value" value="#FCE4C7" oninput="card.style.background = this.value"></label><br>
             <label>Terrains:</label> 
-            <select oninput="Terrain1.src = 'terrains/' + this.value + '.png'">
+            <select oninput="Terrain1.src = 'images/terrains/' + this.value + '.png'">
                 <option value="desert">Desert</option>
                 <option value="forest" selected>Forest</option>
                 <option value="freshwater">Freshwater</option>
@@ -103,7 +103,7 @@
                 <option value="tundra">Tundra</option>
                 <option value="urban">Urban</option>
             </select>
-            <select oninput="Terrain2.src = 'terrains/' + this.value + '.png'">
+            <select oninput="Terrain2.src = 'images/terrains/' + this.value + '.png'">
                 <option value="desert">Desert</option>
                 <option value="forest">Forest</option>
                 <option value="freshwater" selected>Freshwater</option>
@@ -112,7 +112,7 @@
                 <option value="tundra">Tundra</option>
                 <option value="urban">Urban</option>
             </select>
-            <select oninput="Terrain3.src = 'terrains/' + this.value + '.png'">
+            <select oninput="Terrain3.src = 'images/terrains/' + this.value + '.png'">
                 <option value="desert">Desert</option>
                 <option value="forest">Forest</option>
                 <option value="freshwater">Freshwater</option>
@@ -157,7 +157,7 @@
                         hierarchy.min = 1;
                         hierarchy.max = 1;
                         break;
-                    case 'carbon-macromolecules':
+                    case 'molecular':
                         travel.options[2].selected = true;
                         setTravel('NONE');
                         hierarchy.value = 1;
@@ -185,10 +185,10 @@
                         hierarchy.min = 3;
                         hierarchy.max = 4;
                 }
-                FoodChain.src = 'http://phylogame.org/wp-content/themes/phylomon-theme/img/num/' + diet + hierarchy.value + '.png';
+                FoodChain.src = 'images/foodchains/' + diet + hierarchy.value + '.png';
             }
             function setHierarchy(hierarchy) {
-                FoodChain.src = 'http://phylogame.org/wp-content/themes/phylomon-theme/img/num/' + diet.value + hierarchy + '.png';
+                FoodChain.src = 'images/foodchains/' + diet.value + hierarchy + '.png';
             }
             function setTravel(value) {
                 if(value == 'NONE') {
