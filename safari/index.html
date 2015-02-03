@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Safari URI Schemes</title>
+    <style>
+        body {
+            font-family: "Open Sans", "Lato", "Helvetica", sans-serif;
+            margin: 6vmin 12vmin;
+            text-align: center;
+        }
+        h1 {
+            border-bottom: solid #444 1px;
+            font-size: 8vmin;
+            /*font-weight: 400;*/
+            text-align: center;
+            padding: 0 5vmin 2vmin;
+            margin: 0;
+        }
+        #banner {
+            background-color: #ff0;
+        }
+        h4 {
+            border-top: solid #444 1px;
+            font-size: 6vmin;
+            padding-top: 4vmin;
+        }
+        h5 {
+            font-size: 4vmin;
+            margin: 0;
+            text-align: left;
+        }
+        p {
+            text-align: left;
+        }
+        header {
+            background: white;
+            top: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fun with Safari &amp; URI schemes</h1>
+    </header>
+    <h2>Click an application's name to open it!</h2>
+    <h3 id="banner">This won't work well in all browsers; please come back here in Safari!</h3>
+    <br><br>
+    <img src="https://developer.apple.com/library/mac/documentation/UserExperience/Conceptual/OSXHIGuidelines/Art/iTunesY_2x.png" onclick="start('itunes')" height="100px" width="100px">
+    <img src="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/256/ibooks-icon.png" onclick="start('ibooks')" height="100px" width="100px">
+    <img src="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/256/messages-icon.png" onclick="start('imessage')" height="100px" width="100px">
+    <img src="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/256/facetime-icon.png" onclick="start('facetime')" height="100px" width="100px">
+    <img src="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/256/mail-icon.png" onclick="start('mailto')" height="100px" width="100px">
+    <img src="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/256/dictionary-icon.png" onclick="start('dict')" height="100px" width="100px">
+    <img src="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/256/finder-icon.png" onclick="start('file')" height="100px" width="100px">
+    <img src="http://icons.iconarchive.com/icons/johanchalibert/mac-osx-yosemite/256/maps-icon.png" onclick="start('maps')" height="100px" width="100px">
+    <img src="https://developer.apple.com/library/mac/documentation/UserExperience/Conceptual/OSXHIGuidelines/Art/CalendarY_2x.png" onclick="start('ical')" height="100px" width="100px">
+    <img src="http://www.macplanete.com/wp-content/uploads/2015/01/terminal-mac-yosemite-personnaliser.png" onclick="start('ssh')" height="100px" width="100px">
+    <img src="https://macin.files.wordpress.com/2014/10/script-editor-2_7-icon.png" onclick="start('applescript')" height="100px" width="100px">
+    <img src="http://km.support.apple.com/library/content/dam/edam/applecare/images/en_US/osx/printer_image.png" onclick="start('ipp')" height="100px" width="100px">
+    <img src="http://people.mozilla.org/~faaborg/files/shiretoko/firefoxIcon/firefox-512-noshadow.png" onclick="start('ftp')" height="100px" width="100px">
+    <img src="http://fc08.deviantart.net/fs71/f/2014/079/c/5/transparent_skype_icon_by_snowbowlkirby-d7ahwix.png" onclick="start('skype')" height="100px" width="100px">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Transmission_icon.png" onclick="start('magnet')" height="100px" width="100px">
+    <img src="https://pbs.twimg.com/media/BwJ2xAwIQAEKPza.png" onclick="start('steam')" height="100px" width="100px">
+    <img src="http://www.hmhammarin.com/wp-content/uploads/2014/11/Spotify_Large_Icon.png" onclick="start('spotify')" height="100px" width="100px">
+    <img src="http://www.chip.pl/blobimgs/2012/06/full/130b8282fc76af0cc911f11d003e9bac.png" onclick="start('lastfm')" height="100px" width="100px">
+    <br><br>
+    <label>Enter file/folder to navigate to: <input type="text" id="filepath" value="/private/etc/hosts"></label>
+    <button type="submit" onclick="goto('file', document.getElementById('filepath').value)">Open file</button>
+    <br>
+    <label>Enter a name to add as a podcast: <input type="text" id="podcast"></label>
+    <button type="submit" onclick="goto('itunes', document.getElementById('podcast').value)">Add to iTunes</button>
+    <br><br>
+    <button type="button" onclick="start('itunes')">Skip Song</button><button type="button" onclick="repeat('itunes', '/')" title="You will regret clicking this.">Open iTunes Dialogs</button>
+    <br><br>
+    <b>Note any and all of these things could be done without your consent.</b>
+    <br>
+    <h4>Q&amp;A</h4>
+    <h5>What is this?</h5>
+    <p>
+        This is a demonstration of how Safari can be too trusting of URLs, and automatically send them to the appropriate application without asking the user. For example, a random website like this one can open your applications.
+    </p>
+    <h5>How bad is this?</h5>
+    <p>
+        Only a little. This is only possible in Safari, as other browsers will ask you before opening another application. It has also never been seen in the wild.
+    </p>
+    <iframe id="loader" hidden="hidden"></iframe>
+    <script>
+        var ua = navigator.userAgent.toLowerCase();
+        var banner = document.getElementById("banner");
+        var loader = document.getElementById("loader");
+        if(ua.indexOf("safari") != -1 && ua.indexOf("chrome") == -1) {
+            if(ua.indexOf("mobile") != -1) {
+                banner.innerHTML = "Try this using Safari for Mac, mobile site coming soon!"
+            } else {
+                start("itunes");
+                banner.remove();
+            }
+        }
+        function start(app) {
+            loader.src = app + ":";
+            console.log("Opened '" + app + "'.");
+        }
+        function goto(app, path) {
+            loader.src = app + ":" + path;
+            console.log("Opened '" + app + ":" + path + "'.")
+        }
+        function repeat(app, path) {
+            (function() {
+            goto(app, path);
+            setTimeout(arguments.callee, 100);
+        })();
+        }
+    </script>
+</body>
+</html>
